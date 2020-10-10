@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Take Project - WebSocket Server</title>
+</head>
+<body>
+    <input type="text" placeholder="Please enter your message..." id="messageToSend" />
+
+    <button id="sendButton">Send</button>
+    
+    <ul id="messages"></ul>
+    
+    <script type="text/javascript">
+        var uri = "ws://localhost:5000/ws";
+
+        function connect() {
+            socket = new WebSocket(uri);
+            socket.onopen = function (e) {
+                console.log("connected");
+            };
+
+            socket.onclose = function (e) {
+                console.log("disconnected");
+            };
+
+            socket.onmessage = function (e) {
+                appendItem(list, event.data);
+                console.log(e.data);
+            };
+        };
+        connect();
+
+        var list = document.getElementById("messages");
+        var button = document.getElementById("sendButton");
+        button.addEventListener("click", function () {
+            console.log("sending message");
+            var element = document.getElementById("messageToSend").value;
+            socket.send(element);
+            element = "";
+        });
+
+        function appendItem(list, message) {
+            var item = document.createElement("li");
+            item.appendChild(document.createTextNode(message));
+            list.appendChild(item);
+        }
+    </script>
+</body>
+</html>
