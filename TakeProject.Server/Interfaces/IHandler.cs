@@ -5,6 +5,13 @@ namespace TakeProject.Server.Interfaces
 {
     public interface IHandler
     {
-        Task Handle(WebSocket socket, string nickname, string rawMessage);
+        /// <summary>
+        /// Handle
+        /// </summary>
+        /// <param name="socket"></param>
+        /// <param name="nickname"></param>
+        /// <param name="rawMessage"></param>
+        /// <returns></returns>
+        Task<string> Handle(WebSocket socket, string nickname, string rawMessage);
     }
 }

@@ -3,20 +3,21 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using TakeProject.Server.Constants;
+using TakeProject.Server.Interfaces;
 using TakeProject.Server.SocketsManager;
 
 namespace TakeProject.Server.Handlers
 {
-    public abstract class SocketHandler
+    public abstract class SocketHandler : ISocketHandler
     {
-        protected ConnectionManager _connections { get; set; }
-        public SocketHandler(ConnectionManager connection)
+        protected IConnectionManager _connections { get; set; }
+        public SocketHandler(IConnectionManager connection)
         {
             _connections = connection ?? throw new ArgumentNullException(nameof(connection));
         }
 
         /// <summary>
-        /// 
+        /// Add a connection to the list of connected clients and send a message requesting the nickname.
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
@@ -31,7 +32,7 @@ namespace TakeProject.Server.Handlers
         }
 
         /// <summary>
-        /// 
+        /// Remove a connection.
         /// </summary>
         /// <param name="socket"></param>
         /// <returns></returns>
@@ -54,7 +55,7 @@ namespace TakeProject.Server.Handlers
         }
 
         /// <summary>
-        /// 
+        /// Sends a message to client.
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="message"></param>
@@ -67,7 +68,7 @@ namespace TakeProject.Server.Handlers
         }
 
         /// <summary>
-        /// 
+        /// Sends a message to client.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="message"></param>
@@ -78,20 +79,20 @@ namespace TakeProject.Server.Handlers
         }
 
         /// <summary>
-        /// 
+        /// Sends a message to origin and target client.
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="target"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public async Task SendPrivateMessage(WebSocket origin, WebSocket target, string message)
+        public async Task SendMessageToOriginTargetClients(WebSocket origin, WebSocket target, string message)
         {
             await SendMessage(origin, message);
             await SendMessage(target, message);
         }
 
         /// <summary>
-        /// 
+        /// Sends message to all clients.
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>

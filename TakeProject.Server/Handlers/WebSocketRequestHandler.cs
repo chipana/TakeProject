@@ -3,6 +3,7 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 using TakeProject.Server.Extensions;
 using TakeProject.Server.Handlers.Chat;
+using TakeProject.Server.Interfaces;
 using TakeProject.Server.SocketsManager;
 
 namespace TakeProject.Server.Handlers
@@ -13,7 +14,7 @@ namespace TakeProject.Server.Handlers
         private ChatMessageHandler _chatMessageHandler;
         private ChatRegistrationHandler _chatRegistrationHandler;
 
-        public WebSocketRequestHandler(ConnectionManager connections, 
+        public WebSocketRequestHandler(IConnectionManager connections, 
             ChatCommandHandler chatCommandHandler, 
             ChatMessageHandler chatMessageHandler, 
             ChatRegistrationHandler chatRegistrationHandler) : base(connections) 
@@ -24,7 +25,7 @@ namespace TakeProject.Server.Handlers
         }
 
         /// <summary>                                                 
-        /// 
+        /// Recieves the request
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="result"></param>

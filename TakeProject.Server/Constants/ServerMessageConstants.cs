@@ -2,7 +2,7 @@
 {
     public class ServerMessageConstants
     {
-        public const string PROVIDE_NICKNAME = "*** Welcome to our chat server.Please provide a nickname: ";
+        public const string PROVIDE_NICKNAME = "*** Welcome to our chat server. Please provide a nickname: ";
         public const string NICKNAME_ALREADY_TAKEN = "*** Sorry, the nickname {0} is already taken. Please choose a different one: ";
         public const string NICKNAME_INVALID = "*** Sorry, the nickname {0} is invalid. Please choose a different one: ";
         public const string SUCCESSFULLY_REGISTERED = "*** You are registered as {0}. Joining #general";

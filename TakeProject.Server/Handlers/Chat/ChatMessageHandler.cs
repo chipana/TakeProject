@@ -10,23 +10,28 @@ using TakeProject.Server.SocketsManager;
 
 namespace TakeProject.Server.Handlers.Chat
 {
-    public class ChatMessageHandler : SocketHandler, IHandler
+    public class ChatMessageHandler : IHandler
     {
-
-        public ChatMessageHandler(ConnectionManager connections) : base(connections) { }
+        private readonly ISocketHandler _socketHandler;
+        public ChatMessageHandler(ISocketHandler socketHandler)
+        {
+            _socketHandler = socketHandler ?? throw new ArgumentNullException(nameof(socketHandler));
+        }
 
         /// <summary>
-        /// 
+        /// Handle the message
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="nickname"></param>
         /// <param name="rawMessage"></param>
         /// <returns></returns>
-        public async Task Handle(WebSocket socket, string nickname, string rawMessage)
+        public async Task<string> Handle(WebSocket socket, string nickname, string rawMessage)
         {
             var message = ServerMessageConstants.GetMessage(ServerMessageConstants.GENERAL_MESSAGE, nickname, rawMessage);
 
-            await SendMessageToAll(message);
+            await _socketHandler.SendMessageToAll(message);
+
+            return message;
         }
     }
 }

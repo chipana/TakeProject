@@ -10,44 +10,57 @@ using TakeProject.Server.SocketsManager;
 
 namespace TakeProject.Server.Handlers.Chat
 {
-    public class ChatRegistrationHandler : SocketHandler, IHandler
+    public class ChatRegistrationHandler : IHandler
     {
-        public ChatRegistrationHandler(ConnectionManager connections) : base(connections) { }
+        private readonly IConnectionManager _connectionManager;
+        private readonly ISocketHandler _socketHandler;
+        public ChatRegistrationHandler(IConnectionManager connectionManager, ISocketHandler socketHandler)
+        {
+            _connectionManager = connectionManager ?? throw new ArgumentNullException(nameof(connectionManager));
+            _socketHandler = socketHandler ?? throw new ArgumentNullException(nameof(socketHandler));
+        }
+
 
         /// <summary>
-        /// 
+        /// Handle the client registration
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="nickname"></param>
         /// <param name="rawMessage"></param>
         /// <returns></returns>
-        public async Task Handle(WebSocket socket, string nickname, string rawMessage)
+        public async Task<string> Handle(WebSocket socket, string nickname, string rawMessage)
         {
+            var result = "";
             if (!IsValidNickName(rawMessage))
             {
-                await SendMessage(socket, ServerMessageConstants.GetMessage(ServerMessageConstants.NICKNAME_INVALID, rawMessage));
-                return;
+                result = ServerMessageConstants.GetMessage(ServerMessageConstants.NICKNAME_INVALID, rawMessage);
+                await _socketHandler.SendMessage(socket, result);
+                return result;
             }
 
-            if (!_connections.IsNickNameExists(rawMessage))
+            if (_connectionManager.IsNickNameExists(rawMessage))
             {
-                await SendMessage(socket, ServerMessageConstants.GetMessage(ServerMessageConstants.NICKNAME_ALREADY_TAKEN, rawMessage));
-                return;
+                result = ServerMessageConstants.GetMessage(ServerMessageConstants.NICKNAME_ALREADY_TAKEN, rawMessage);
+                await _socketHandler.SendMessage(socket, result);
+                return result;
             }
 
 
-            if (_connections.RegisterNickName(socket, rawMessage))
+            if (_connectionManager.RegisterNickName(socket, rawMessage))
             {
-                await SendMessage(socket, ServerMessageConstants.GetMessage(ServerMessageConstants.SUCCESSFULLY_REGISTERED, rawMessage));
+                result = ServerMessageConstants.GetMessage(ServerMessageConstants.SUCCESSFULLY_REGISTERED, rawMessage);
+                await _socketHandler.SendMessage(socket, result);
 
                 var message = ServerMessageConstants.GetMessage(ServerMessageConstants.JOINED_GENERAL_CHANNEL, rawMessage);
-                await SendMessageToAll(message);
+                await _socketHandler.SendMessageToAll(message);
+
             }
+            return result;
         }
 
 
         /// <summary>
-        /// 
+        /// Check if nickname is valid.
         /// </summary>
         /// <param name="nickname"></param>
         /// <returns></returns>
@@ -56,7 +69,7 @@ namespace TakeProject.Server.Handlers.Chat
             // Verify if there's any special character
             Regex regexExpression = new Regex("^[a-zA-Z0-9]*$");
 
-            return !string.IsNullOrWhiteSpace(nickname) && !regexExpression.IsMatch(nickname);
+            return !string.IsNullOrWhiteSpace(nickname) && regexExpression.IsMatch(nickname);
         }
     }
 }

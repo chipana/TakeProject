@@ -3,13 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TakeProject.Client", "TakeProject\TakeProject.Client.csproj", "{D7189052-C1B9-4DB1-A911-93B487111A23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TakeProject.Client", "TakeProject.Client\TakeProject.Client.csproj", "{D7189052-C1B9-4DB1-A911-93B487111A23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TakeProject.Server", "TakeProject.Server\TakeProject.Server.csproj", "{9569D6A3-BF64-4E82-BD62-43A72F798863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TakeProject.Server", "TakeProject.Server\TakeProject.Server.csproj", "{9569D6A3-BF64-4E82-BD62-43A72F798863}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Chat Server", "1 - Chat Server", "{09F32340-0D1D-409A-9CDC-B3BC07EB7703}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Chat Client", "2 - Chat Client", "{106F06D3-E09F-4805-8048-EA0E9371FA40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TakeProject.Tests", "TakeProject.Tests\TakeProject.Tests.csproj", "{D6165B7B-3A56-4319-94E2-518AB1830429}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Tests", "3 - Tests", "{57B7C83B-9B90-44D2-AB22-C8AF22564376}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{207B3176-0E95-49DF-B91F-BC5F866769E4}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\dotNet\Bancofinal\LICENSE = ..\..\dotNet\Bancofinal\LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +35,10 @@ Global
 		{9569D6A3-BF64-4E82-BD62-43A72F798863}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9569D6A3-BF64-4E82-BD62-43A72F798863}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9569D6A3-BF64-4E82-BD62-43A72F798863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6165B7B-3A56-4319-94E2-518AB1830429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6165B7B-3A56-4319-94E2-518AB1830429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6165B7B-3A56-4319-94E2-518AB1830429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6165B7B-3A56-4319-94E2-518AB1830429}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D7189052-C1B9-4DB1-A911-93B487111A23} = {106F06D3-E09F-4805-8048-EA0E9371FA40}
 		{9569D6A3-BF64-4E82-BD62-43A72F798863} = {09F32340-0D1D-409A-9CDC-B3BC07EB7703}
+		{D6165B7B-3A56-4319-94E2-518AB1830429} = {57B7C83B-9B90-44D2-AB22-C8AF22564376}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {224C53F0-2E77-4B91-8C97-8EB038118D49}
