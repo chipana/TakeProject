@@ -8,17 +8,19 @@ using TakeProject.Server.SocketsManager;
 
 namespace TakeProject.Server.Handlers
 {
-    public class WebSocketRequestHandler : SocketHandler
+    public class WebSocketRequestHandler
     {
-        private ChatCommandHandler _chatCommandHandler;
-        private ChatMessageHandler _chatMessageHandler;
-        private ChatRegistrationHandler _chatRegistrationHandler;
+        private readonly IConnectionManager _connectionManager;
+        private readonly ChatCommandHandler _chatCommandHandler;
+        private readonly ChatMessageHandler _chatMessageHandler;
+        private readonly ChatRegistrationHandler _chatRegistrationHandler;
 
-        public WebSocketRequestHandler(IConnectionManager connections, 
+        public WebSocketRequestHandler(IConnectionManager connectionManager,
             ChatCommandHandler chatCommandHandler, 
             ChatMessageHandler chatMessageHandler, 
-            ChatRegistrationHandler chatRegistrationHandler) : base(connections) 
+            ChatRegistrationHandler chatRegistrationHandler)
         {
+            _connectionManager = connectionManager ?? throw new ArgumentNullException(nameof(connectionManager));
             _chatCommandHandler = chatCommandHandler ?? throw new ArgumentNullException(nameof(chatCommandHandler));
             _chatMessageHandler = chatMessageHandler ?? throw new ArgumentNullException(nameof(chatMessageHandler));
             _chatRegistrationHandler = chatRegistrationHandler ?? throw new ArgumentNullException(nameof(chatRegistrationHandler));
@@ -31,9 +33,9 @@ namespace TakeProject.Server.Handlers
         /// <param name="result"></param>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        public override async Task RecieveRequest(WebSocket socket, WebSocketReceiveResult result, byte[] buffer)
+        public async Task RecieveRequest(WebSocket socket, WebSocketReceiveResult result, byte[] buffer)
         {
-            var nickname = _connections.GetNickNameBySocket(socket);
+            var nickname = _connectionManager.GetNickNameBySocket(socket);
 
             var rawMessage = buffer.GetBufferedMessage(result.Count);
 

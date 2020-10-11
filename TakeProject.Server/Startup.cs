@@ -28,7 +28,7 @@ namespace TakeProject.Server
             }
 
             app.UseWebSockets();
-            app.MapSockets("/ws", serviceProvider.GetService<WebSocketRequestHandler>());
+            app.MapSockets("/ws");
             app.UseDefaultFiles();
             app.UseStaticFiles();
         }

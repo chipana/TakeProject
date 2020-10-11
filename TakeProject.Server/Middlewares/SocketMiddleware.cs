@@ -4,18 +4,21 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using TakeProject.Server.Handlers;
+using TakeProject.Server.Interfaces;
 
 namespace TakeProject.Server.Middlewares
 {
     public class SocketMiddleware
     {
         private readonly RequestDelegate _next;
-        private SocketHandler _socketHandler { get; set; }
+        private readonly ISocketHandler _socketHandler;
+        private readonly WebSocketRequestHandler _webSocketRequestHandler;
 
-        public SocketMiddleware(RequestDelegate next, SocketHandler socketHandler)
+        public SocketMiddleware(RequestDelegate next, ISocketHandler socketHandler, WebSocketRequestHandler webSocketRequestHandler)
         {
             _next = next ?? throw new ArgumentNullException(nameof(next));
             _socketHandler = socketHandler ?? throw new ArgumentNullException(nameof(socketHandler));
+            _webSocketRequestHandler = webSocketRequestHandler ?? throw new ArgumentNullException(nameof(webSocketRequestHandler));
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -30,7 +33,7 @@ namespace TakeProject.Server.Middlewares
             await Recieve(socket, async (result, buffer) =>
             {
                 if (result.MessageType == WebSocketMessageType.Text)
-                    await _socketHandler.RecieveRequest(socket, result, buffer);
+                    await _webSocketRequestHandler.RecieveRequest(socket, result, buffer);
                 else if (result.MessageType == WebSocketMessageType.Close)
                     await _socketHandler.OnDisconnected(socket);
             });

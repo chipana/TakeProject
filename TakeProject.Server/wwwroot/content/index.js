@@ -21,4 +21,11 @@ $(document).ready(function () {
     };
 
     $("button#sendButton").on("click", sendMessage);
+
+    $("input#messageInput").on("keyup", function (e) {
+        //13 = Enter/Return
+        if (e.keyCode == 13) {
+            sendMessage();
+        }
+    });
 });

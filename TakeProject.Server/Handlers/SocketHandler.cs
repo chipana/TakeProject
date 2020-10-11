@@ -8,7 +8,7 @@ using TakeProject.Server.SocketsManager;
 
 namespace TakeProject.Server.Handlers
 {
-    public abstract class SocketHandler : ISocketHandler
+    public class SocketHandler : ISocketHandler
     {
         protected IConnectionManager _connections { get; set; }
         public SocketHandler(IConnectionManager connection)
@@ -43,24 +43,12 @@ namespace TakeProject.Server.Handlers
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <param name="result"></param>
-        /// <param name="buffer"></param>
-        /// <returns></returns>
-        public virtual Task RecieveRequest(WebSocket socket, WebSocketReceiveResult result, byte[] buffer) 
-        {
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
         /// Sends a message to client.
         /// </summary>
         /// <param name="socket"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public virtual async Task SendMessage(WebSocket socket, string message)
+        public async Task SendMessage(WebSocket socket, string message)
         {
             if (socket.State != WebSocketState.Open)
                 return;

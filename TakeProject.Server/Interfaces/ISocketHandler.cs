@@ -23,15 +23,6 @@ namespace TakeProject.Server.Interfaces
         Task OnDisconnected(WebSocket socket);
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="socket"></param>
-        /// <param name="result"></param>
-        /// <param name="buffer"></param>
-        /// <returns></returns>
-        Task RecieveRequest(WebSocket socket, WebSocketReceiveResult result, byte[] buffer);
-
-        /// <summary>
         /// Sends a message to client.
         /// </summary>
         /// <param name="socket"></param>

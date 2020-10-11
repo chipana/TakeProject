@@ -12,13 +12,12 @@ namespace TakeProject.Server.Extensions
         /// </summary>
         /// <param name="app"></param>
         /// <param name="path"></param>
-        /// <param name="socket"></param>
         /// <returns></returns>
-        public static IApplicationBuilder MapSockets(this IApplicationBuilder app, PathString path, SocketHandler socket)
+        public static IApplicationBuilder MapSockets(this IApplicationBuilder app, PathString path)
         {
             return app.Map(path, (x) =>
             {
-                x.UseMiddleware<SocketMiddleware>(socket);
+                x.UseMiddleware<SocketMiddleware>();
             });
         }
     }
