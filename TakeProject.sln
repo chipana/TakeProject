@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Tests", "3 - Tests", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{207B3176-0E95-49DF-B91F-BC5F866769E4}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\dotNet\Bancofinal\LICENSE = ..\..\dotNet\Bancofinal\LICENSE
+		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
 EndProject
