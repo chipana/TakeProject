@@ -1,6 +1,7 @@
 # Take - Chat
 
 This project represents a chat with some functionalities (like message, private message, nickname ) implemented in a WebSocket using .Net Core 3.1 framework.
+Was developed in monolithic architecture, with a focus on MVP. Follow as much of the SOLID and Clean Code patterns as possible, with my actual knowledge.
 
 ## Getting Started
 
